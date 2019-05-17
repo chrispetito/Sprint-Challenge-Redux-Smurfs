@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { fetchSmurfs } from "../actions";
+import { fetchSmurfs, deleteSmurf } from "../actions";
 
 import SmurfForm from './SmurfForm'
 
@@ -14,6 +14,10 @@ import SmurfForm from './SmurfForm'
 class App extends Component {
  componentDidMount() {
     this.props.fetchSmurfs();
+  }
+
+  deleteSmurf = (id) => {
+    this.props.deleteSmurf(id)
   }
 
   render() {
@@ -31,6 +35,7 @@ class App extends Component {
                 <h5>
                   HEIGHT <span>{smurf.height}</span>
                 </h5>
+                <button onClick={()=> this.deleteSmurf(smurf.id)}>Delete</button>
               </div>
             );
           })}{" "}
@@ -48,5 +53,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchSmurfs }
+  { fetchSmurfs, deleteSmurf }
 )(App);
